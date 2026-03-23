@@ -4,14 +4,15 @@
 - task_ids: {phase1: 11, phase3: 12}
 ## Current State
 - Phase: 4
-- Current story: 3.1 Health Check Endpoint
+- Current story: 3.2 OpenAPI Documentation
 - Working directory: /home/clawd/projects/simple-url-shortener-api
-- Last action: Spawned parallel Phase 4 tracks — dev-story 3.2 via Codex ACP and create-story 3.3 via Claude ACP
-- Next step: Pipeline State active — poll cron handling
-## Pipeline State
-- current_dev_story: 3.2 — Codex ACP session: agent:codex:acp:f3bf819d-d0d2-4743-94c4-2ea606928c3e
-- current_prep_story: 3.3 — Claude ACP session: agent:claude:acp:0e876a84-205a-4268-95bd-8e4ca6d01a23
-
+- Last action: Started Claude ACP fallback code-review for Story 3.2 via session agent:claude:acp:9b19c287-a786-4c61-8e8c-49c89d0faed0
+- Next step: ACP session running — poll cron active
+- acp_workflow: code-review
+- acp_session_key: agent:claude:acp:9b19c287-a786-4c61-8e8c-49c89d0faed0
+- acp_status: running
+- acp_started_at: 2026-03-23T19:03:53Z
+- next_after_acp: Start story 3.3: Docker Packaging and CI Pipeline — sequential
 ## Stories
 - [x] Story 1.1: Initialize Fastify TypeScript Project with Environment Configuration (commit: 0078f67)
 - [x] Story 1.2: Database Schema and Persistence Layer (commit: 545de47)
