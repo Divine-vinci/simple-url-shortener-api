@@ -49,7 +49,7 @@ development_status:
   epic-1-retrospective: optional
 
   epic-2: in-progress
-  2-1-get-shortcode-redirect-endpoint: ready-for-dev
+  2-1-get-shortcode-redirect-endpoint: review
   2-2-request-logging-and-operational-observability: ready-for-dev
   epic-2-retrospective: optional
 

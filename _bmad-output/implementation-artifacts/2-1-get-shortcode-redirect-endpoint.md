@@ -1,6 +1,6 @@
 # Story 2.1: GET /:shortCode Redirect Endpoint
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -17,30 +17,30 @@ So that short links work transparently and take me where I expect to go.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create resolve-short-url service (AC: #1, #2)
-  - [ ] Create `src/services/resolve-short-url-service.ts`
-  - [ ] Implement `resolveShortCode(shortCode: string, repository: ShortUrlRepository): string | null` that looks up the short code and returns the `originalUrl` or `null`
-- [ ] Task 2: Create GET /:shortCode redirect route (AC: #1, #2, #3)
-  - [ ] Create `src/routes/redirect-routes.ts`
-  - [ ] Register as a Fastify plugin with `GET /:shortCode` route
-  - [ ] On found: respond with `reply.redirect(302, originalUrl)` — no JSON body
-  - [ ] On not found: respond with 404 JSON error using the standard error format
-  - [ ] Unexpected errors bubble to the centralized error handler (do NOT catch them locally)
-- [ ] Task 3: Add NOT_FOUND error handling to error handler (AC: #2)
-  - [ ] Check if the existing error handler in `src/plugins/error-handler.ts` needs a `NotFoundError` class, OR handle 404 directly in the route handler (recommended — 404 is a route-level response, not a domain exception)
-  - [ ] Decision: Return 404 directly from the route handler since "not found" is a normal control flow outcome, not an exception. The centralized error handler already covers unexpected 500 errors.
-- [ ] Task 4: Register redirect routes in app.ts (AC: #1)
-  - [ ] Modify `src/app.ts` to import and register `redirectRoutes`
-  - [ ] Registration order: database plugin → error handler → shorten routes → redirect routes
-- [ ] Task 5: Write integration tests (AC: #4)
-  - [ ] Create `tests/integration/redirect-route.test.ts`
-  - [ ] Test: existing short code → 302 with correct `Location` header, no JSON body
-  - [ ] Test: non-existent short code → 404 with `NOT_FOUND` error response
-  - [ ] Test: verify `Location` header contains the `originalUrl` (not the normalized URL)
-  - [ ] Test: verify redirect response has no body / empty body
-  - [ ] Setup: use `POST /shorten` to create a short URL, then `GET /:shortCode` to test redirect
-- [ ] Task 6: Verify build and all tests pass
-  - [ ] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
+- [x] Task 1: Create resolve-short-url service (AC: #1, #2)
+  - [x] Create `src/services/resolve-short-url-service.ts`
+  - [x] Implement `resolveShortCode(shortCode: string, repository: ShortUrlRepository): string | null` that looks up the short code and returns the `originalUrl` or `null`
+- [x] Task 2: Create GET /:shortCode redirect route (AC: #1, #2, #3)
+  - [x] Create `src/routes/redirect-routes.ts`
+  - [x] Register as a Fastify plugin with `GET /:shortCode` route
+  - [x] On found: respond with `reply.redirect(302, originalUrl)` — no JSON body
+  - [x] On not found: respond with 404 JSON error using the standard error format
+  - [x] Unexpected errors bubble to the centralized error handler (do NOT catch them locally)
+- [x] Task 3: Add NOT_FOUND error handling to error handler (AC: #2)
+  - [x] Check if the existing error handler in `src/plugins/error-handler.ts` needs a `NotFoundError` class, OR handle 404 directly in the route handler (recommended — 404 is a route-level response, not a domain exception)
+  - [x] Decision: Return 404 directly from the route handler since "not found" is a normal control flow outcome, not an exception. The centralized error handler already covers unexpected 500 errors.
+- [x] Task 4: Register redirect routes in app.ts (AC: #1)
+  - [x] Modify `src/app.ts` to import and register `redirectRoutes`
+  - [x] Registration order: database plugin → error handler → shorten routes → redirect routes
+- [x] Task 5: Write integration tests (AC: #4)
+  - [x] Create `tests/integration/redirect-route.test.ts`
+  - [x] Test: existing short code → 302 with correct `Location` header, no JSON body
+  - [x] Test: non-existent short code → 404 with `NOT_FOUND` error response
+  - [x] Test: verify `Location` header contains the `originalUrl` (not the normalized URL)
+  - [x] Test: verify redirect response has no body / empty body
+  - [x] Setup: use `POST /shorten` to create a short URL, then `GET /:shortCode` to test redirect
+- [x] Task 6: Verify build and all tests pass
+  - [x] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
 
 ## Dev Notes
 
@@ -199,10 +199,21 @@ simple-url-shortener-api/
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+openai/gpt-5.4
 
 ### Debug Log References
 
 ### Completion Notes List
 
+- Added a synchronous resolve service that returns stored original destinations from existing short codes.
+- Added a dedicated redirect route that returns 302 on success, explicit 404 `NOT_FOUND` JSON for misses, and lets unexpected failures reach the centralized 500 handler.
+- Registered redirect routes after `/shorten` so the parameterized route stays behind more specific endpoints.
+- Added integration coverage for redirect success, empty-body behavior, missing codes, stored-original-vs-normalized behavior, and unexpected repository failures.
+- Verification passed on 2026-03-23: `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`.
+
 ### File List
+
+- src/app.ts
+- src/routes/redirect-routes.ts
+- src/services/resolve-short-url-service.ts
+- tests/integration/redirect-route.test.ts
