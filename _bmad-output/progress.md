@@ -6,12 +6,13 @@
 - Phase: 4
 - Current story: 2.2 Request Logging and Operational Observability
 - Working directory: /home/clawd/projects/simple-url-shortener-api
-- Last action: Spawned parallel Phase 4 tracks — dev-story 2.2 via Codex ACP and create-story 3.1 via Claude ACP
-- Next step: Pipeline State active — poll cron handling
-## Pipeline State
-- current_dev_story: 2.2 — Codex ACP session: agent:codex:acp:adf02cc1-8d8f-4803-aff3-56687dd26476
-- current_prep_story: 3.1 — Claude ACP session: agent:claude:acp:e770fb64-d450-4142-aacd-25afac093800
-
+- Last action: Committed and pushed Story 2.2 after parallel dev/create-story completion; started Claude ACP code-review for Story 2.2 via session agent:claude:acp:c5891fc8-b204-4303-97b5-5c8862c4f5dd
+- Next step: ACP session running — poll cron active
+- acp_workflow: code-review
+- acp_session_key: agent:claude:acp:c5891fc8-b204-4303-97b5-5c8862c4f5dd
+- acp_status: running
+- acp_started_at: 2026-03-23T16:42:23Z
+- next_after_acp: Start story 3.1: Health Check Endpoint — dev+prep parallel
 ## Stories
 - [x] Story 1.1: Initialize Fastify TypeScript Project with Environment Configuration (commit: 0078f67)
 - [x] Story 1.2: Database Schema and Persistence Layer (commit: 545de47)

@@ -1,6 +1,6 @@
 # Story 2.2: Request Logging and Operational Observability
 
-Status: review
+Status: done
 
 ## Story
 
