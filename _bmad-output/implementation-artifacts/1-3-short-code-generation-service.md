@@ -1,6 +1,6 @@
 # Story 1.3: Short Code Generation Service
 
-Status: review
+Status: done
 
 ## Story
 
@@ -153,10 +153,40 @@ openai/gpt-5.4
 ### Change Log
 
 - 2026-03-23: implemented short code generation service + collision-aware retry handling and validated with typecheck/build/test/lint.
-
-
-
+- 2026-03-23: code review fixes applied (see Senior Developer Review below).
 
 ### Debug Log References
 
 - `npm run typecheck && npm run build && npm test && npm run lint`
+
+## Senior Developer Review (AI)
+
+**Reviewer:** Claude Opus 4.6 on 2026-03-23
+**Outcome:** Approved with fixes applied
+
+### Git vs Story Discrepancies
+0 discrepancies — story File List matches git changes.
+
+### AC Validation
+- AC1: IMPLEMENTED — 7-char base62 via modulo mapping
+- AC2: IMPLEMENTED — uses `crypto.randomBytes` (named import)
+- AC3: IMPLEMENTED — retry loop with 4 total attempts + typed error
+- AC4: IMPLEMENTED — 7 tests covering format, mapping, boundary, uniqueness, retry, exhaustion
+
+### Issues Found and Fixed (2 Medium, 3 Low)
+
+**MEDIUM-1 [FIXED]:** Exhaustion test (`tests/unit/generate-short-code-service.test.ts:71-80`) invoked `generateUniqueShortCode` twice — once for error type check, once for message check — doubling mock call counts and requiring confusing `* 2` arithmetic. Refactored to single invocation with try/catch.
+
+**MEDIUM-2 [FIXED]:** Unnecessary `afterEach(() => vi.restoreAllMocks())` at file scope. Tests use `vi.fn()` only, never `vi.spyOn()`, so `restoreAllMocks` had no effect. Removed.
+
+**LOW-1 [FIXED]:** `import * as crypto from 'node:crypto'` imported entire namespace when only `randomBytes` is used. Changed to named import `import { randomBytes } from 'node:crypto'`.
+
+**LOW-2 [FIXED]:** No edge-case test for modulo mapping at high byte values (248-255 where wrapping occurs). Added `'maps high byte values correctly via modulo wrapping'` test.
+
+**LOW-3 [FIXED]:** Deterministic mapping test lacked documentation of how input bytes map to expected output. Added inline comment explaining the index derivation.
+
+### Post-Fix Verification
+- `npm run typecheck` — pass
+- `npm run build` — pass
+- `npm test` — 26 tests pass (5 files)
+- `npm run lint` — clean

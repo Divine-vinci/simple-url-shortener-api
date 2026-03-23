@@ -1,4 +1,4 @@
-import * as crypto from 'node:crypto'
+import { randomBytes } from 'node:crypto'
 import { ShortCodeCollisionError } from '../lib/errors.js'
 
 export const SHORT_CODE_LENGTH = 7
@@ -9,7 +9,7 @@ const TOTAL_ATTEMPTS = MAX_RETRIES + 1
 export type ShortCodeExistsFn = (code: string) => boolean
 export type RandomBytesFn = (size: number) => Uint8Array
 
-export function generateShortCode(randomBytesFn: RandomBytesFn = crypto.randomBytes): string {
+export function generateShortCode(randomBytesFn: RandomBytesFn = randomBytes): string {
   const bytes = randomBytesFn(SHORT_CODE_LENGTH)
   let code = ''
 
