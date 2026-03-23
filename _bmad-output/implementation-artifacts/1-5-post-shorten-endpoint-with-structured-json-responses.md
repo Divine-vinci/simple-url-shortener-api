@@ -1,6 +1,6 @@
 # Story 1.5: POST /shorten Endpoint with Structured JSON Responses
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -20,50 +20,50 @@ So that I can programmatically create short URLs and integrate them into my appl
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create Zod request/response schemas (AC: #1, #2)
-  - [ ] Create `src/schemas/short-url-schemas.ts`
-  - [ ] Define `shortenRequestSchema` with Zod: `{ url: z.string() }` — minimal, validation logic is in `url-validation-service.ts`
-  - [ ] Define `shortenResponseSchema` for the success response shape (used for OpenAPI docs in Story 3.2)
-  - [ ] Define `errorResponseSchema` for the standard error format
-- [ ] Task 2: Create shorten URL orchestration service (AC: #1, #3)
-  - [ ] Create `src/services/shorten-url-service.ts`
-  - [ ] Implement `shortenUrl(url: string, config: AppConfig, repository: ShortUrlRepository): Promise<ShortenResult>` that orchestrates: validate → normalize → check duplicate → generate code → persist → return result
-  - [ ] On duplicate (normalized URL match): return existing record with `isNew: false`
-  - [ ] On new URL: generate unique short code, insert, return new record with `isNew: true`
-  - [ ] Throw `UrlValidationError` when validation fails
-- [ ] Task 3: Create centralized error handler plugin (AC: #2, #4, #5)
-  - [ ] Create `src/plugins/error-handler.ts`
-  - [ ] Register as a Fastify plugin using `setErrorHandler`
-  - [ ] Map `UrlValidationError` → 400 with `"VALIDATION_ERROR"` code
-  - [ ] Map `ShortCodeCollisionError` → 500 with `"INTERNAL_ERROR"` code
-  - [ ] Map Fastify validation errors (JSON parse, content-type) → 400 with `"VALIDATION_ERROR"` code
-  - [ ] Map unknown errors → 500 with `"INTERNAL_ERROR"` code and sanitized message
-  - [ ] Always use format: `{ "error": { "code": string, "message": string, "details"?: object } }`
-- [ ] Task 4: Create POST /shorten route (AC: #1, #2, #3, #4, #6)
-  - [ ] Create `src/routes/shorten-routes.ts`
-  - [ ] Register as a Fastify plugin with `POST /shorten` route
-  - [ ] Attach Zod-derived JSON schema for request body validation
-  - [ ] Set request body size limit (e.g., `bodyLimit: 1_048_576` — 1MB)
-  - [ ] Call `shortenUrl` service, then return 201 (new) or 200 (duplicate) with the response body
-  - [ ] Construct `shortUrl` using `request.server.config.baseUrl + '/' + shortCode`
-- [ ] Task 5: Register routes and plugins in app.ts (AC: #1, #5, #6)
-  - [ ] Modify `src/app.ts` to register `errorHandlerPlugin` and `shortenRoutes`
-  - [ ] Registration order: database plugin → error handler → routes
-- [ ] Task 6: Create test fixture for integration tests (AC: #7)
-  - [ ] Create `tests/fixtures/test-app.ts`
-  - [ ] Export a `buildTestApp()` helper that creates a Fastify instance with in-memory SQLite (`:memory:`) and test config
-  - [ ] Ensure proper cleanup (app.close()) support
-- [ ] Task 7: Write integration tests (AC: #7)
-  - [ ] Create `tests/integration/shorten-route.test.ts`
-  - [ ] Test: valid URL → 201 with correct response body shape and `shortUrl` construction
-  - [ ] Test: same URL submitted twice → first returns 201, second returns 200 with same shortCode
-  - [ ] Test: invalid URL → 400 with `VALIDATION_ERROR` error response
-  - [ ] Test: missing URL field → 400
-  - [ ] Test: empty body → 400
-  - [ ] Test: wrong content-type → 400
-  - [ ] Test: response `createdAt` is valid ISO 8601
-- [ ] Task 8: Verify build and all tests pass
-  - [ ] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
+- [x] Task 1: Create Zod request/response schemas (AC: #1, #2)
+  - [x] Create `src/schemas/short-url-schemas.ts`
+  - [x] Define `shortenRequestSchema` with Zod: `{ url: z.string() }` — minimal, validation logic is in `url-validation-service.ts`
+  - [x] Define `shortenResponseSchema` for the success response shape (used for OpenAPI docs in Story 3.2)
+  - [x] Define `errorResponseSchema` for the standard error format
+- [x] Task 2: Create shorten URL orchestration service (AC: #1, #3)
+  - [x] Create `src/services/shorten-url-service.ts`
+  - [x] Implement `shortenUrl(url: string, config: AppConfig, repository: ShortUrlRepository): Promise<ShortenResult>` that orchestrates: validate → normalize → check duplicate → generate code → persist → return result
+  - [x] On duplicate (normalized URL match): return existing record with `isNew: false`
+  - [x] On new URL: generate unique short code, insert, return new record with `isNew: true`
+  - [x] Throw `UrlValidationError` when validation fails
+- [x] Task 3: Create centralized error handler plugin (AC: #2, #4, #5)
+  - [x] Create `src/plugins/error-handler.ts`
+  - [x] Register as a Fastify plugin using `setErrorHandler`
+  - [x] Map `UrlValidationError` → 400 with `"VALIDATION_ERROR"` code
+  - [x] Map `ShortCodeCollisionError` → 500 with `"INTERNAL_ERROR"` code
+  - [x] Map Fastify validation errors (JSON parse, content-type) → 400 with `"VALIDATION_ERROR"` code
+  - [x] Map unknown errors → 500 with `"INTERNAL_ERROR"` code and sanitized message
+  - [x] Always use format: `{ "error": { "code": string, "message": string, "details"?: object } }`
+- [x] Task 4: Create POST /shorten route (AC: #1, #2, #3, #4, #6)
+  - [x] Create `src/routes/shorten-routes.ts`
+  - [x] Register as a Fastify plugin with `POST /shorten` route
+  - [x] Attach Zod-derived JSON schema for request body validation
+  - [x] Set request body size limit (e.g., `bodyLimit: 1_048_576` — 1MB)
+  - [x] Call `shortenUrl` service, then return 201 (new) or 200 (duplicate) with the response body
+  - [x] Construct `shortUrl` using `request.server.config.baseUrl + '/' + shortCode`
+- [x] Task 5: Register routes and plugins in app.ts (AC: #1, #5, #6)
+  - [x] Modify `src/app.ts` to register `errorHandlerPlugin` and `shortenRoutes`
+  - [x] Registration order: database plugin → error handler → routes
+- [x] Task 6: Create test fixture for integration tests (AC: #7)
+  - [x] Create `tests/fixtures/test-app.ts`
+  - [x] Export a `buildTestApp()` helper that creates a Fastify instance with in-memory SQLite (`:memory:`) and test config
+  - [x] Ensure proper cleanup (app.close()) support
+- [x] Task 7: Write integration tests (AC: #7)
+  - [x] Create `tests/integration/shorten-route.test.ts`
+  - [x] Test: valid URL → 201 with correct response body shape and `shortUrl` construction
+  - [x] Test: same URL submitted twice → first returns 201, second returns 200 with same shortCode
+  - [x] Test: invalid URL → 400 with `VALIDATION_ERROR` error response
+  - [x] Test: missing URL field → 400
+  - [x] Test: empty body → 400
+  - [x] Test: wrong content-type → 400
+  - [x] Test: response `createdAt` is valid ISO 8601
+- [x] Task 8: Verify build and all tests pass
+  - [x] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
 
 ## Dev Notes
 
@@ -293,7 +293,7 @@ openai/gpt-5.4
 - AC2, AC4, AC5: Added centralized Fastify error handler for domain + framework validation failures with structured `{ error: { code, message, details? } }` responses.
 - AC7: Added integration fixture + route coverage for success, duplicate, invalid URL, missing field, empty body, and wrong content-type scenarios.
 - Registered database + error-handler plugins application-wide and converted `buildApp()` to async registration to ensure plugin order and decorator visibility.
-- Verification passed: `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`.
+- Verification passed on 2026-03-23: `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`.
 
 ### File List
 

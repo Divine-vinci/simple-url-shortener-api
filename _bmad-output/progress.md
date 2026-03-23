@@ -6,13 +6,15 @@
 - Phase: 4
 - Current story: 2.1 GET /:shortCode Redirect Endpoint
 - Working directory: /home/clawd/projects/simple-url-shortener-api
-- Last action: Started Claude ACP create-story for Story 2.1 via session agent:claude:acp:2ec91359-01fc-472d-901d-4425fb9cf156
-- Next step: ACP session running — poll cron active
-- acp_workflow: create-story
-- acp_session_key: agent:claude:acp:2ec91359-01fc-472d-901d-4425fb9cf156
-- acp_status: running
-- acp_started_at: 2026-03-23T12:12:56Z
-- next_after_acp: Dev story 2.1: GET /:shortCode Redirect Endpoint — create-story 2.2 parallel
+- Last action: ACP poll found Claude prep-story 2.2 completed, but Codex dev-story session for 2.1 returned mismatched output (updated Story 1.5 instead of implementing 2.1)
+- Next step: Fallback: start GPT-5.4 for dev-story 2.1, then sequentially close create-story 2.2
+- acp_workflow: dev-story
+- acp_session_key: agent:codex:acp:3d4bbecb-1fab-46b7-a9dc-b051e648dc20
+- acp_status: errored
+- acp_started_at: 2026-03-23T12:26:00Z
+- next_after_acp: Complete create-story 2.2, commit, then run code-review for story 2.1
+- prep_story_session_key: agent:claude:acp:004c2ae4-4748-4bd2-bbd6-31579facecc6
+- prep_story_status: completed
 ## Stories
 - [x] Story 1.1: Initialize Fastify TypeScript Project with Environment Configuration (commit: 0078f67)
 - [x] Story 1.2: Database Schema and Persistence Layer (commit: 545de47)

@@ -3,7 +3,19 @@
   "projectPath": "/home/clawd/projects/simple-url-shortener-api",
   "createdAt": "2026-03-23T07:03:32.742Z",
   "currentPhase": "implementation",
-  "activeWorkflows": [],
+  "activeWorkflows": [
+    {
+      "id": "dev-story",
+      "agentId": "dev",
+      "agentName": "Amelia",
+      "mode": "yolo",
+      "currentStep": 1,
+      "totalSteps": null,
+      "currentStepFile": "/home/clawd/.openclaw/extensions/bmad-method/bmad-method/bmm/workflows/4-implementation/dev-story/workflow.yaml",
+      "outputFile": "",
+      "startedAt": "2026-03-23T12:30:07.757Z"
+    }
+  ],
   "completedWorkflows": [
     {
       "id": "create-story",
@@ -159,4 +171,5 @@
       "completedAt": "2026-03-23T12:29:58.898Z"
     }
   ]
+}
 }
