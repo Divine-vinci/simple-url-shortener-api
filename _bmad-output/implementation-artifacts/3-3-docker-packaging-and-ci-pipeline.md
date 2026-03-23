@@ -1,6 +1,6 @@
 # Story 3.3: Docker Packaging and CI Pipeline
 
-Status: review
+Status: done
 
 ## Story
 
