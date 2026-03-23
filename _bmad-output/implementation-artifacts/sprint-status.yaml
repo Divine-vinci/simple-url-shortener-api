@@ -42,7 +42,7 @@ story_location: /home/clawd/projects/simple-url-shortener-api/_bmad-output/imple
 development_status:
   epic-1: in-progress
   1-1-initialize-fastify-typescript-project-with-environment-configuration: done
-  1-2-database-schema-and-persistence-layer: backlog
+  1-2-database-schema-and-persistence-layer: ready-for-dev
   1-3-short-code-generation-service: backlog
   1-4-url-validation-and-normalization-service: backlog
   1-5-post-shorten-endpoint-with-structured-json-responses: backlog
