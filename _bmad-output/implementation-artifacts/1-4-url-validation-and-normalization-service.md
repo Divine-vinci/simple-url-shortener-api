@@ -192,3 +192,24 @@ simple-url-shortener-api/
 ### Completion Notes List
 
 ### File List
+
+
+
+## Dev Agent Record
+
+### Agent Model Used
+openai/gpt-5.4
+
+### Completion Notes List
+- AC1-AC2: Added `validateUrl(input)` in `src/services/url-validation-service.ts` with http/https-only validation, trimmed empty-input rejection, malformed URL rejection, and descriptive discriminated-union failures.
+- AC3: Added `normalizeUrl(url)` in `src/services/normalize-url-service.ts` with scheme/host canonicalization, default-port stripping, sorted query params, trailing-slash removal for non-root paths, fragment removal, and canonical pathname encoding.
+- AC2: Added `UrlValidationError` with optional structured `details` in `src/lib/errors.ts`.
+- AC5: Added unit coverage for valid URLs, invalid schemes, malformed/empty/non-string input, query sorting, default-port removal, trailing-slash normalization, fragment removal, equivalent URL normalization, and root-path preservation.
+- Verification: `npm run typecheck`, `npm test`, `npm run build`, `npm run lint` all pass.
+
+### File List
+- src/services/url-validation-service.ts
+- src/services/normalize-url-service.ts
+- src/lib/errors.ts
+- tests/unit/url-validation-service.test.ts
+- tests/unit/normalize-url-service.test.ts

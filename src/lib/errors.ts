@@ -5,3 +5,14 @@ export class ShortCodeCollisionError extends Error {
     super(message)
   }
 }
+
+export class UrlValidationError extends Error {
+  readonly name = 'UrlValidationError'
+
+  constructor(
+    message = 'Submitted URL failed validation',
+    readonly details?: Record<string, unknown>
+  ) {
+    super(message)
+  }
+}
