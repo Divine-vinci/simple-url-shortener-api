@@ -6,13 +6,13 @@
 - Phase: 4
 - Current story: 3.1 Health Check Endpoint
 - Working directory: /home/clawd/projects/simple-url-shortener-api
-- Last action: Committed and pushed Story 2.2 after passing code review (commit: a3ba265); spawned parallel Phase 4 tracks — dev-story 3.1 via Codex ACP and create-story 3.2 via Claude ACP
-- Next step: Pipeline State active — poll cron handling
-
-## Pipeline State
-- current_dev_story: 3.1 — Codex ACP session: agent:codex:acp:8e5ce6be-b676-4a71-8297-0dd71348cbc8
-- current_prep_story: 3.2 — Claude ACP session: agent:claude:acp:861cb511-d214-4fbf-bd17-a07d9fabb332
-
+- Last action: Committed BMAD recovery checkpoint for Story 3.1 / Story 3.2 prep (commit: 2b556bb); started Claude ACP code-review for Story 3.1 via session agent:claude:acp:54b57330-12ee-4395-a9b4-51de624d06dd
+- Next step: ACP session running — poll cron active
+- acp_workflow: code-review
+- acp_session_key: agent:claude:acp:54b57330-12ee-4395-a9b4-51de624d06dd
+- acp_status: running
+- acp_started_at: 2026-03-23T17:05:48Z
+- next_after_acp: Dev story 3.2: OpenAPI Documentation — create-story 3.3 parallel
 ## Stories
 - [x] Story 1.1: Initialize Fastify TypeScript Project with Environment Configuration (commit: 0078f67)
 - [x] Story 1.2: Database Schema and Persistence Layer (commit: 545de47)
@@ -34,4 +34,3 @@
 - [x] create-story 1.2 (2026-03-23)
 ## Blockers
 - None
-
