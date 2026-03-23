@@ -30,7 +30,8 @@ export function createDatabaseClient(options: CreateDatabaseClientOptions): Data
   const sqlite = new Database(options.databasePath)
   const db = drizzle(sqlite, { schema })
 
-  migrate(db, { migrationsFolder: path.resolve(process.cwd(), 'drizzle/migrations') })
+  const migrationsFolder = path.resolve(__dirname, '../../drizzle/migrations')
+  migrate(db, { migrationsFolder })
 
   return {
     db,

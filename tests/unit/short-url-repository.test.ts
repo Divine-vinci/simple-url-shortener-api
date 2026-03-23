@@ -59,6 +59,10 @@ describe('ShortUrlRepository', () => {
     expect(repository.findByShortCode('missing')).toBeNull()
   })
 
+  it('findByNormalizedUrl returns null for missing URLs', () => {
+    expect(repository.findByNormalizedUrl('https://nonexistent.com')).toBeNull()
+  })
+
   it('findByNormalizedUrl returns an existing record', () => {
     const inserted = repository.insert({
       shortCode: 'norm01',
@@ -104,7 +108,12 @@ describe('ShortUrlRepository', () => {
   })
 
   it('generated migrations create the short_urls table with expected indexes and columns', () => {
+    closeDatabase?.()
+    closeDatabase = undefined
+
     const client = createDatabaseClient({ databasePath })
+    closeDatabase = client.close
+
     const tableSql = client.sqlite
       .prepare("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'short_urls'")
       .get() as { sql: string } | undefined
@@ -122,7 +131,5 @@ describe('ShortUrlRepository', () => {
       'short_urls_normalized_url_unique',
       'short_urls_short_code_unique'
     ])
-
-    client.close()
   })
 })

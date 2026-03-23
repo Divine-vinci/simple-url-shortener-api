@@ -1,6 +1,6 @@
 # Story 1.2: Database Schema and Persistence Layer
 
-Status: review
+Status: done
 
 ## Story
 
@@ -197,6 +197,27 @@ openai/gpt-5.4
 - tests/unit/short-url-repository.test.ts
 - tsconfig.json
 
+### Senior Developer Review (AI)
+
+**Reviewer:** User (claude-opus-4-6) on 2026-03-23
+**Outcome:** Approved with fixes applied
+
+**Issues Found:** 0 Critical, 4 Medium, 2 Low
+
+**Fixed (3):**
+1. [MEDIUM] Migration path used `process.cwd()` — replaced with `__dirname`-relative resolution in `src/db/client.ts` for reliable path resolution across deployment environments
+2. [MEDIUM] Missing test for `findByNormalizedUrl` returning null — added test case in `tests/unit/short-url-repository.test.ts`
+3. [MEDIUM] Test "generated migrations" opened second SQLite connection without closing first — fixed to close existing connection before opening new one
+
+**Noted (not fixed):**
+4. [MEDIUM] Redundant index on `short_code` — `.unique()` already creates `short_urls_short_code_unique`; explicit `idx_short_urls_short_code` is a second index on the same column. Not fixed because it matches the story spec and changing it requires migration regeneration.
+5. [LOW] `mapShortUrlRecord` is identity mapping — Drizzle already returns camelCase fields from the schema definition. The function adds no transformation. Defensive but misleading.
+6. [LOW] `ensureDatabaseDirectory` separated from `createDatabaseClient` — split responsibility; callers must remember to call both.
+
+**AC Validation:** All 5 ACs fully implemented and verified.
+**Task Audit:** All 8 tasks marked [x] confirmed as done.
+
 ### Change Log
 
 - 2026-03-23: implemented SQLite schema, migration generation, Fastify DB plugin, typed repository, and repository integration tests; validated via typecheck/build/test/lint.
+- 2026-03-23: [code-review] Fixed migration path resolution, added missing null test for findByNormalizedUrl, fixed test double-connection issue. All checks pass (19 tests, typecheck, build, lint).
