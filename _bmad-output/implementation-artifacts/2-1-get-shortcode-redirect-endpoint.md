@@ -1,6 +1,6 @@
 # Story 2.1: GET /:shortCode Redirect Endpoint
 
-Status: review
+Status: done
 
 ## Story
 
