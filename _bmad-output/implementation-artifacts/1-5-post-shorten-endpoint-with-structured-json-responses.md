@@ -278,3 +278,31 @@ simple-url-shortener-api/
 ### Completion Notes List
 
 ### File List
+
+
+
+## Dev Agent Record
+
+### Agent Model Used
+
+openai/gpt-5.4
+
+### Completion Notes List
+
+- AC1, AC3, AC6: Implemented `POST /shorten` orchestration path with duplicate detection and `BASE_URL` short URL construction.
+- AC2, AC4, AC5: Added centralized Fastify error handler for domain + framework validation failures with structured `{ error: { code, message, details? } }` responses.
+- AC7: Added integration fixture + route coverage for success, duplicate, invalid URL, missing field, empty body, and wrong content-type scenarios.
+- Registered database + error-handler plugins application-wide and converted `buildApp()` to async registration to ensure plugin order and decorator visibility.
+- Verification passed: `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`.
+
+### File List
+
+- src/app.ts
+- src/plugins/database.ts
+- src/plugins/error-handler.ts
+- src/routes/shorten-routes.ts
+- src/schemas/short-url-schemas.ts
+- src/services/shorten-url-service.ts
+- src/server.ts
+- tests/fixtures/test-app.ts
+- tests/integration/shorten-route.test.ts

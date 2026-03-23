@@ -12,3 +12,6 @@ export const databasePlugin: FastifyPluginAsync = async (app) => {
     client.close()
   })
 }
+
+
+;(databasePlugin as unknown as Record<PropertyKey, unknown>)[Symbol.for('skip-override')] = true

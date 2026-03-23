@@ -3,7 +3,7 @@ import { loadConfig } from './config/app-config.js'
 
 async function startServer(): Promise<void> {
   const config = loadConfig()
-  const app = buildApp({ config })
+  const app = await buildApp({ config })
 
   try {
     await app.listen({
