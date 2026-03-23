@@ -48,8 +48,8 @@ development_status:
   1-5-post-shorten-endpoint-with-structured-json-responses: ready-for-dev
   epic-1-retrospective: optional
 
-  epic-2: backlog
-  2-1-get-shortcode-redirect-endpoint: backlog
+  epic-2: in-progress
+  2-1-get-shortcode-redirect-endpoint: ready-for-dev
   2-2-request-logging-and-operational-observability: backlog
   epic-2-retrospective: optional
 
