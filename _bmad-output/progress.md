@@ -6,12 +6,13 @@
 - Phase: 4
 - Current story: 1.4 URL Validation and Normalization Service
 - Working directory: /home/clawd/projects/simple-url-shortener-api
-- Last action: Spawned dev-story 1.4 and create-story 1.5 in parallel
-- Next step: Pipeline State active — poll cron handling
+- Last action: Completed dev-story 1.4 + create-story 1.5, committed recovery checkpoint, spawned code-review 1.4
+- Next step: ACP session running — poll cron active
 - next_after_acp: Start story 1.5: POST /shorten Endpoint with Structured JSON Responses — sequential
 ## Pipeline State
-- current_dev_story: 1.4 URL Validation and Normalization Service — GPT-5.4 session: agent:main:subagent:db3733b4-8033-4202-8a0a-6f308627e723
-- current_prep_story: 1.5 POST /shorten Endpoint with Structured JSON Responses — Claude ACP session: agent:claude:acp:fb1ff2e1-1d6f-4224-b92a-bc0d46cb3e90
+- code_review_story: 1.4 URL Validation and Normalization Service — Claude ACP session: agent:claude:acp:a11940c1-c0df-485d-be28-59ce66713345
+- acp_started_at: 2026-03-23T11:10:00Z
+- prep_story_ready: 1.5 POST /shorten Endpoint with Structured JSON Responses
 
 ## Stories
 - [x] Story 1.1: Initialize Fastify TypeScript Project with Environment Configuration (commit: 0078f67)
