@@ -6,16 +6,16 @@
 - Phase: 4
 - Current story: 1.2 Database Schema and Persistence Layer
 - Working directory: /home/clawd/projects/simple-url-shortener-api
-- Last action: Recovered stalled pipeline after create-story 1.2 completed; spawned dev-story 1.2 and create-story 1.3 in parallel
-- Next step: Pipeline State active — poll cron handling
+- Last action: Started code-review for Story 1.2 via Claude ACP session agent:claude:acp:4a24e0e9-3d83-40a5-9cfd-2dfc79ea3a67
+- Next step: ACP session running — poll cron active
+- acp_workflow: code-review
+- acp_session_key: agent:claude:acp:4a24e0e9-3d83-40a5-9cfd-2dfc79ea3a67
+- acp_status: running
+- acp_started_at: 2026-03-23T10:11:27Z
 - next_after_acp: Dev story 1.3: Short Code Generation Service — create-story 1.4 parallel
-## Pipeline State
-- current_dev_story: 1.2 Database Schema and Persistence Layer — GPT-5.4 session: agent:main:subagent:c6525940-2a9a-48c5-bed7-69c565ca1012
-- current_prep_story: 1.3 Short Code Generation Service — Claude ACP session: agent:claude:acp:a1da9aaf-2ec5-485a-aee3-b906d93e4205
-
 ## Stories
 - [x] Story 1.1: Initialize Fastify TypeScript Project with Environment Configuration (commit: 0078f67)
-- [ ] Story 1.2: Database Schema and Persistence Layer
+- [ ] Story 1.2: Database Schema and Persistence Layer (commit pending review)
 - [ ] Story 1.3: Short Code Generation Service
 - [ ] Story 1.4: URL Validation and Normalization Service
 - [ ] Story 1.5: POST /shorten Endpoint with Structured JSON Responses
