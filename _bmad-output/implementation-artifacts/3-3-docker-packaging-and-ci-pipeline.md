@@ -1,6 +1,6 @@
 # Story 3.3: Docker Packaging and CI Pipeline
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -21,29 +21,29 @@ So that I can deploy the service to production with confidence and catch regress
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create Dockerfile with multi-stage build (AC: #1, #2, #7, #8)
-  - [ ] Stage 1 (`builder`): Use `node:24-alpine` base, copy `package.json` + `package-lock.json`, run `npm ci`, copy source, run `npm run build`
-  - [ ] Stage 2 (`production`): Use `node:24-alpine` base, copy only `dist/`, `node_modules/` (production), `package.json`, `drizzle/` from builder
-  - [ ] Set `NODE_ENV=production`, expose PORT via `ENV` and `EXPOSE`
-  - [ ] Set entrypoint to `node dist/server.js`
-  - [ ] Create `data/` directory in the image for SQLite mount point
-  - [ ] Add `.dockerignore` to exclude `node_modules`, `dist`, `.git`, `tests`, `data`, `_bmad*`
-- [ ] Task 2: Create docker-compose.yml (AC: #3, #4)
-  - [ ] Define `api` service using local build context
-  - [ ] Map port `${PORT:-3000}:${PORT:-3000}`
-  - [ ] Mount named volume `url-data` to `/app/data` for SQLite persistence
-  - [ ] Set environment variables from `.env` with documented defaults
-  - [ ] Add comments referencing `.env.example` for configuration documentation
-- [ ] Task 3: Create CI pipeline `.github/workflows/ci.yml` (AC: #5, #6)
-  - [ ] Trigger on `pull_request` to `main` and `push` to `main`
-  - [ ] Use `node:24` or `actions/setup-node@v4` with Node 24
-  - [ ] Steps: checkout → setup node → `npm ci` → `npm run typecheck` → `npm run lint` → `npm test`
-  - [ ] Fail the workflow if any step fails (default behavior)
-- [ ] Task 4: Verify Docker build locally
-  - [ ] Run `docker build -t url-shortener .` and verify image size < 100MB
-  - [ ] Run container with test environment variables and verify health check responds
-- [ ] Task 5: Verify all existing tests still pass
-  - [ ] Run `npm run typecheck`, `npm run lint`, `npm test`
+- [x] Task 1: Create Dockerfile with multi-stage build (AC: #1, #2, #7, #8)
+  - [x] Stage 1 (`builder`): Use `node:24-alpine` base, copy `package.json` + `package-lock.json`, run `npm ci`, copy source, run `npm run build`
+  - [x] Stage 2 (`production`): Use `node:24-alpine` base, copy only `dist/`, `node_modules/` (production), `package.json`, `drizzle/` from builder
+  - [x] Set `NODE_ENV=production`, expose PORT via `ENV` and `EXPOSE`
+  - [x] Set entrypoint to `node dist/server.js`
+  - [x] Create `data/` directory in the image for SQLite mount point
+  - [x] Add `.dockerignore` to exclude `node_modules`, `dist`, `.git`, `tests`, `data`, `_bmad*`
+- [x] Task 2: Create docker-compose.yml (AC: #3, #4)
+  - [x] Define `api` service using local build context
+  - [x] Map port `${PORT:-3000}:${PORT:-3000}`
+  - [x] Mount named volume `url-data` to `/app/data` for SQLite persistence
+  - [x] Set environment variables from `.env` with documented defaults
+  - [x] Add comments referencing `.env.example` for configuration documentation
+- [x] Task 3: Create CI pipeline `.github/workflows/ci.yml` (AC: #5, #6)
+  - [x] Trigger on `pull_request` to `main` and `push` to `main`
+  - [x] Use `node:24` or `actions/setup-node@v4` with Node 24
+  - [x] Steps: checkout → setup node → `npm ci` → `npm run typecheck` → `npm run lint` → `npm test`
+  - [x] Fail the workflow if any step fails (default behavior)
+- [x] Task 4: Verify Docker build locally
+  - [x] Run `docker build -t url-shortener .` and verify image size < 100MB
+  - [x] Run container with test environment variables and verify health check responds
+- [x] Task 5: Verify all existing tests still pass
+  - [x] Run `npm run typecheck`, `npm run lint`, `npm test`
 
 ## Dev Notes
 

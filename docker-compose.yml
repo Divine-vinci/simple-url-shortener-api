@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: .
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+    environment:
+      # See .env.example for documented defaults and descriptions.
+      PORT: ${PORT:-3000}
+      BASE_URL: ${BASE_URL:-http://localhost:3000}
+      DATABASE_PATH: ${DATABASE_PATH:-/app/data/urls.db}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    volumes:
+      - url-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  url-data:
