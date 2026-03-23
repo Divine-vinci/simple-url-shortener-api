@@ -1,6 +1,6 @@
 # Story 2.2: Request Logging and Operational Observability
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -15,30 +15,30 @@ So that I can debug issues, monitor traffic patterns, and trace failures without
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create request logging plugin (AC: #1)
-  - [ ] Create `src/plugins/request-logging.ts`
-  - [ ] Register as a `FastifyPluginAsync` using Fastify's lifecycle hooks
-  - [ ] Use `onResponse` hook to log: method, url, statusCode, responseTime
-  - [ ] For error responses (4xx/5xx), include `errorCode` in the log entry when available
-  - [ ] Add custom serializers to redact sensitive fields (DATABASE_PATH, databasePath, internal file paths)
-  - [ ] Mark plugin with `skip-override` symbol so it applies application-wide
-- [ ] Task 2: Configure Pino serializers for sensitive data redaction (AC: #1)
-  - [ ] Add `redact` configuration to the Pino logger options in `src/app.ts`
-  - [ ] Redact paths: `['req.headers.authorization', 'req.headers.cookie']` (future-proofing)
-  - [ ] Ensure DATABASE_PATH and databasePath never appear in log output by not logging config objects directly
-- [ ] Task 3: Register request logging plugin in app.ts (AC: #1)
-  - [ ] Import and register `requestLoggingPlugin` in `src/app.ts`
-  - [ ] Registration order: database → error handler → request logging → shorten routes → redirect routes
-- [ ] Task 4: Write integration tests (AC: #2)
-  - [ ] Create `tests/integration/request-logging.test.ts`
-  - [ ] Capture Pino log output by using a custom destination stream in test setup
-  - [ ] Test: successful request produces log entry with method, url/path, statusCode (2xx), responseTime
-  - [ ] Test: 404 request produces log entry with statusCode 404
-  - [ ] Test: 400 validation error produces log entry with statusCode 400
-  - [ ] Test: log entries are valid JSON (structured logging verification)
-  - [ ] Test: log entries do NOT contain DATABASE_PATH or databasePath values
-- [ ] Task 5: Verify build and all tests pass
-  - [ ] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
+- [x] Task 1: Create request logging plugin (AC: #1)
+  - [x] Create `src/plugins/request-logging.ts`
+  - [x] Register as a `FastifyPluginAsync` using Fastify's lifecycle hooks
+  - [x] Use `onResponse` hook to log: method, url, statusCode, responseTime
+  - [x] For error responses (4xx/5xx), include `errorCode` in the log entry when available
+  - [x] Add custom serializers to redact sensitive fields (DATABASE_PATH, databasePath, internal file paths)
+  - [x] Mark plugin with `skip-override` symbol so it applies application-wide
+- [x] Task 2: Configure Pino serializers for sensitive data redaction (AC: #1)
+  - [x] Add `redact` configuration to the Pino logger options in `src/app.ts`
+  - [x] Redact paths: `['req.headers.authorization', 'req.headers.cookie']` (future-proofing)
+  - [x] Ensure DATABASE_PATH and databasePath never appear in log output by not logging config objects directly
+- [x] Task 3: Register request logging plugin in app.ts (AC: #1)
+  - [x] Import and register `requestLoggingPlugin` in `src/app.ts`
+  - [x] Registration order: database → error handler → request logging → shorten routes → redirect routes
+- [x] Task 4: Write integration tests (AC: #2)
+  - [x] Create `tests/integration/request-logging.test.ts`
+  - [x] Capture Pino log output by using a custom destination stream in test setup
+  - [x] Test: successful request produces log entry with method, url/path, statusCode (2xx), responseTime
+  - [x] Test: 404 request produces log entry with statusCode 404
+  - [x] Test: 400 validation error produces log entry with statusCode 400
+  - [x] Test: log entries are valid JSON (structured logging verification)
+  - [x] Test: log entries do NOT contain DATABASE_PATH or databasePath values
+- [x] Task 5: Verify build and all tests pass
+  - [x] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
 
 ## Dev Notes
 
@@ -270,10 +270,29 @@ simple-url-shortener-api/
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+openai/gpt-5.4
 
 ### Debug Log References
 
+- 2026-03-23: Added an application-wide request logging plugin using `onSend` + `onResponse` hooks to emit one structured Pino entry per request and attach `errorCode` for 4xx/5xx responses.
+- 2026-03-23: Updated `src/app.ts` logger options to disable Fastify default request logs, redact auth/cookie headers, and sanitize serializer output without logging config objects.
+- 2026-03-23: Added integration coverage for success, 404, validation failure, JSON structure, and sensitive-value non-leakage; verification passed via `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`.
+
 ### Completion Notes List
 
+- AC1: Added `src/plugins/request-logging.ts` as a `FastifyPluginAsync` with `skip-override`, `onSend` error-code capture, and `onResponse` request-completion logging at info/warn/error levels.
+- AC1: Updated `src/app.ts` to register the plugin in the required order `database -> error handler -> request logging -> shorten routes -> redirect routes`, enable `disableRequestLogging`, and keep `LOG_LEVEL` configurable.
+- AC1: Added logger redaction/serializer safeguards so auth/cookie headers are redacted and sensitive config labels are not emitted.
+- AC2: Added `tests/integration/request-logging.test.ts` to capture Pino JSON output through a writable stream and verify success/error log shape plus sensitive-value redaction expectations.
+- Validation: Passed `npm run typecheck`, `npm run build`, `npm test`, and `npm run lint` on 2026-03-23.
+
 ### File List
+
+- src/app.ts
+- src/plugins/request-logging.ts
+- src/types/fastify.d.ts
+- tests/integration/request-logging.test.ts
+
+## Change Log
+
+- 2026-03-23: Implemented Story 2.2 request logging and observability with full test/lint/type/build verification.

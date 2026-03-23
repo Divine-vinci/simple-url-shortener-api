@@ -7,4 +7,8 @@ declare module 'fastify' {
     config: AppConfig
     db: AppDatabase
   }
+
+  interface FastifyRequest {
+    errorCode?: string
+  }
 }
