@@ -4,6 +4,7 @@ import { loadConfig } from './config/app-config.js'
 import { databasePlugin } from './plugins/database.js'
 import { errorHandlerPlugin } from './plugins/error-handler.js'
 import { requestLoggingPlugin } from './plugins/request-logging.js'
+import { healthRoutes } from './routes/health-routes.js'
 import { shortenRoutes } from './routes/shorten-routes.js'
 import { redirectRoutes } from './routes/redirect-routes.js'
 
@@ -73,6 +74,7 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
   await app.register(errorHandlerPlugin)
   await app.register(requestLoggingPlugin)
   await app.register(shortenRoutes)
+  await app.register(healthRoutes)
   await app.register(redirectRoutes)
 
   return app
