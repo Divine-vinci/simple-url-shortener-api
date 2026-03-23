@@ -6,11 +6,11 @@
 - Phase: 4
 - Current story: 1.5 POST /shorten Endpoint with Structured JSON Responses
 - Working directory: /home/clawd/projects/simple-url-shortener-api
-- Last action: Started code-review for Story 1.5 via Claude ACP session agent:claude:acp:f199e008-a788-431d-beb8-44da83d3e4d2
-- Next step: Fallback: start GPT-5.4 for code-review
+- Last action: Started GPT-5.4 fallback code-review for Story 1.5 via subagent session agent:main:subagent:79876a50-0772-4952-b0c8-0ed3cc8b03a0
+- Next step: Poll GPT-5.4 fallback code-review session agent:main:subagent:79876a50-0772-4952-b0c8-0ed3cc8b03a0
 - acp_workflow: code-review
 - acp_session_key: agent:claude:acp:f199e008-a788-431d-beb8-44da83d3e4d2
-- acp_status: timed_out
+- acp_status: fallback_running
 - acp_started_at: 2026-03-23T11:26:27Z
 - next_after_acp: Start story 2.1: GET /:shortCode Redirect Endpoint
 ## Stories
@@ -34,3 +34,5 @@
 - [x] create-story 1.2 (2026-03-23)
 ## Blockers
 - None
+
+- fallback_session_key: agent:main:subagent:79876a50-0772-4952-b0c8-0ed3cc8b03a0
