@@ -55,6 +55,6 @@ development_status:
 
   epic-3: in-progress
   3-1-health-check-endpoint: review
-  3-2-openapi-documentation: review
-  3-3-docker-packaging-and-ci-pipeline: ready-for-dev
+  3-2-openapi-documentation: done
+  3-3-docker-packaging-and-ci-pipeline: in-progress
   epic-3-retrospective: optional
