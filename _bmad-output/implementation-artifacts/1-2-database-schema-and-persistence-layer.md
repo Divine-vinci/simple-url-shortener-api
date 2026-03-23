@@ -1,6 +1,6 @@
 # Story 1.2: Database Schema and Persistence Layer
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -18,38 +18,38 @@ So that short URL mappings can be reliably stored and retrieved.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Define Drizzle ORM schema (AC: #2)
-  - [ ] Create `src/db/schema.ts` with `short_urls` table definition using Drizzle's SQLite column builders
-  - [ ] Define columns: id (integer, primary key, autoincrement), short_code (text, unique, notNull), original_url (text, notNull), normalized_url (text, unique, notNull), created_at (text, notNull — ISO 8601 string)
-  - [ ] Add index on `short_code` column: `idx_short_urls_short_code`
-- [ ] Task 2: Configure Drizzle Kit and generate initial migration (AC: #1)
-  - [ ] Create `drizzle.config.ts` at repo root
-  - [ ] Run `npx drizzle-kit generate` to produce the initial SQL migration in `drizzle/migrations/`
-  - [ ] Verify the migration SQL creates the table with correct constraints
-- [ ] Task 3: Create database client and connection plugin (AC: #1)
-  - [ ] Create `src/db/client.ts` — initialize better-sqlite3 connection using `config.databasePath`, run Drizzle migrations on connect
-  - [ ] Create `src/plugins/database.ts` — Fastify plugin that initializes the DB client on startup, decorates the Fastify instance with `db`, and closes the connection on app close
-  - [ ] Register the database plugin in `src/app.ts`
-- [ ] Task 4: Define domain types (AC: #4)
-  - [ ] Create `src/types/short-url.ts` — export `ShortUrlRecord` interface with camelCase fields: `id`, `shortCode`, `originalUrl`, `normalizedUrl`, `createdAt`
-- [ ] Task 5: Implement repository layer (AC: #3, #4)
-  - [ ] Create `src/repositories/short-url-repository.ts` with methods:
+- [x] Task 1: Define Drizzle ORM schema (AC: #2)
+  - [x] Create `src/db/schema.ts` with `short_urls` table definition using Drizzle's SQLite column builders
+  - [x] Define columns: id (integer, primary key, autoincrement), short_code (text, unique, notNull), original_url (text, notNull), normalized_url (text, unique, notNull), created_at (text, notNull — ISO 8601 string)
+  - [x] Add index on `short_code` column: `idx_short_urls_short_code`
+- [x] Task 2: Configure Drizzle Kit and generate initial migration (AC: #1)
+  - [x] Create `drizzle.config.ts` at repo root
+  - [x] Run `npx drizzle-kit generate` to produce the initial SQL migration in `drizzle/migrations/`
+  - [x] Verify the migration SQL creates the table with correct constraints
+- [x] Task 3: Create database client and connection plugin (AC: #1)
+  - [x] Create `src/db/client.ts` — initialize better-sqlite3 connection using `config.databasePath`, run Drizzle migrations on connect
+  - [x] Create `src/plugins/database.ts` — Fastify plugin that initializes the DB client on startup, decorates the Fastify instance with `db`, and closes the connection on app close
+  - [x] Register the database plugin in `src/app.ts`
+- [x] Task 4: Define domain types (AC: #4)
+  - [x] Create `src/types/short-url.ts` — export `ShortUrlRecord` interface with camelCase fields: `id`, `shortCode`, `originalUrl`, `normalizedUrl`, `createdAt`
+- [x] Task 5: Implement repository layer (AC: #3, #4)
+  - [x] Create `src/repositories/short-url-repository.ts` with methods:
     - `insert(record: { shortCode, originalUrl, normalizedUrl }): ShortUrlRecord`
     - `findByShortCode(shortCode: string): ShortUrlRecord | null`
     - `findByNormalizedUrl(normalizedUrl: string): ShortUrlRecord | null`
-  - [ ] Map Drizzle result rows (snake_case) to `ShortUrlRecord` (camelCase) domain objects
-  - [ ] Repository receives Drizzle db instance via constructor or parameter (for testability)
-- [ ] Task 6: Update Fastify type declarations (AC: #3)
-  - [ ] Extend `src/types/fastify.d.ts` to add `db` property on FastifyInstance
-- [ ] Task 7: Write tests (AC: #5)
-  - [ ] Create `tests/unit/short-url-repository.test.ts` — test insert, findByShortCode, findByNormalizedUrl using an in-memory or temp-file SQLite database
-  - [ ] Test insert returns a typed `ShortUrlRecord` with all fields populated including auto-generated id and created_at
-  - [ ] Test findByShortCode returns null for non-existent codes
-  - [ ] Test findByNormalizedUrl returns existing record for duplicate normalized URLs
-  - [ ] Test unique constraint violation on duplicate short_code
-  - [ ] Test unique constraint violation on duplicate normalized_url
-- [ ] Task 8: Verify build and existing tests still pass
-  - [ ] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
+  - [x] Map Drizzle result rows (snake_case) to `ShortUrlRecord` (camelCase) domain objects
+  - [x] Repository receives Drizzle db instance via constructor or parameter (for testability)
+- [x] Task 6: Update Fastify type declarations (AC: #3)
+  - [x] Extend `src/types/fastify.d.ts` to add `db` property on FastifyInstance
+- [x] Task 7: Write tests (AC: #5)
+  - [x] Create `tests/unit/short-url-repository.test.ts` — test insert, findByShortCode, findByNormalizedUrl using an in-memory or temp-file SQLite database
+  - [x] Test insert returns a typed `ShortUrlRecord` with all fields populated including auto-generated id and created_at
+  - [x] Test findByShortCode returns null for non-existent codes
+  - [x] Test findByNormalizedUrl returns existing record for duplicate normalized URLs
+  - [x] Test unique constraint violation on duplicate short_code
+  - [x] Test unique constraint violation on duplicate normalized_url
+- [x] Task 8: Verify build and existing tests still pass
+  - [x] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
 
 ## Dev Notes
 
@@ -158,10 +158,45 @@ simple-url-shortener-api/
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+openai/gpt-5.4
+
+### Implementation Plan
+
+- AC1-AC2: define Drizzle schema + generate SQLite migration + run migrations on DB client creation.
+- AC3-AC4: expose typed repository methods returning `ShortUrlRecord` and decorate Fastify with typed `db` access.
+- AC5: cover repository CRUD + uniqueness + migration shape with isolated SQLite-backed Vitest cases.
 
 ### Debug Log References
 
+- `npm test -- tests/unit/short-url-repository.test.ts` (initial failing validation: unsupported `--runInBand` option before implementation validation)
+- `npx drizzle-kit generate`
+- `npm test -- tests/unit/short-url-repository.test.ts`
+- `npm run typecheck && npm run build && npm test && npm run lint`
+
 ### Completion Notes List
 
+- ✅ AC1: added Drizzle config, generated initial SQLite migration, and wired migration execution into DB client startup.
+- ✅ AC2: defined `short_urls` schema with autoincrement PK, unique `short_code`, unique `normalized_url`, and `idx_short_urls_short_code`.
+- ✅ AC3: added Fastify database plugin + typed repository methods for insert, lookup by short code, and lookup by normalized URL.
+- ✅ AC4: mapped Drizzle rows to `ShortUrlRecord` camelCase domain objects and extended Fastify typings with `db`.
+- ✅ AC5: added repository integration tests covering inserts, lookups, uniqueness failures, and generated migration structure.
+
 ### File List
+
+- drizzle.config.ts
+- drizzle/migrations/0000_slim_silver_fox.sql
+- drizzle/migrations/meta/0000_snapshot.json
+- drizzle/migrations/meta/_journal.json
+- src/app.ts
+- src/db/client.ts
+- src/db/schema.ts
+- src/plugins/database.ts
+- src/repositories/short-url-repository.ts
+- src/types/fastify.d.ts
+- src/types/short-url.ts
+- tests/unit/short-url-repository.test.ts
+- tsconfig.json
+
+### Change Log
+
+- 2026-03-23: implemented SQLite schema, migration generation, Fastify DB plugin, typed repository, and repository integration tests; validated via typecheck/build/test/lint.

@@ -3,20 +3,17 @@
   "projectPath": "/home/clawd/projects/simple-url-shortener-api",
   "createdAt": "2026-03-23T07:03:32.742Z",
   "currentPhase": "implementation",
-  "activeWorkflows": [
+  "activeWorkflows": [],
+  "completedWorkflows": [
     {
       "id": "create-story",
       "agentId": "sm",
       "agentName": "Bob",
       "mode": "yolo",
-      "currentStep": 1,
-      "totalSteps": null,
-      "currentStepFile": "/home/clawd/.openclaw/extensions/bmad-method/bmad-method/bmm/workflows/4-implementation/create-story/workflow.yaml",
-      "outputFile": "",
-      "startedAt": "2026-03-23T10:05:04.587Z"
-    }
-  ],
-  "completedWorkflows": [
+      "totalSteps": 6,
+      "completedAt": "2026-03-23T10:06:00.000Z",
+      "outputFile": "/home/clawd/projects/simple-url-shortener-api/_bmad-output/implementation-artifacts/1-3-short-code-generation-service.md"
+    },
     {
       "id": "create-story",
       "agentId": "sm",
