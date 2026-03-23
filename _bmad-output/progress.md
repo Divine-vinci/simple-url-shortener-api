@@ -9,7 +9,7 @@
 - Last action: Implemented Story 2.1 with GPT-5.4 fallback, verified full suite, and marked the story review-ready while preserving prep-story 2.2 context
 - Next step: ACP session running — poll cron active
 - acp_workflow: code-review
-- acp_session_key: PENDING_CODE_REVIEW_SESSION
+- acp_session_key: agent:claude:acp:331cae53-e03c-4e96-ba0c-c72945e5f606
 - acp_status: running
 - acp_started_at: 2026-03-23T13:09:00Z
 - next_after_acp: If review passes, mark Story 2.1 done, then start Story 2.2: Request Logging and Operational Observability
