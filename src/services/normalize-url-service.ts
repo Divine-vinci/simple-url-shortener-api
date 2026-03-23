@@ -1,11 +1,9 @@
 function normalizePathname(pathname: string): string {
-  const canonicalPath = encodeURI(decodeURI(pathname))
-
-  if (canonicalPath === '/') {
-    return canonicalPath
+  if (pathname === '/') {
+    return pathname
   }
 
-  return canonicalPath.replace(/\/+$/u, '') || '/'
+  return pathname.replace(/\/+$/u, '') || '/'
 }
 
 export function normalizeUrl(url: URL): string {

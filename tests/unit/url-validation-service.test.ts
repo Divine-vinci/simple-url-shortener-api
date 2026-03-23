@@ -41,16 +41,32 @@ describe('validateUrl', () => {
       valid: false,
       error: 'URL protocol must be http or https; received file:'
     })
+    expect(validateUrl('mailto:user@example.com')).toEqual({
+      valid: false,
+      error: 'URL protocol must be http or https; received mailto:'
+    })
   })
 
   it('rejects empty, whitespace-only, non-string, and malformed values', () => {
     expect(validateUrl('')).toEqual({ valid: false, error: 'URL is required' })
     expect(validateUrl('   ')).toEqual({ valid: false, error: 'URL is required' })
     expect(validateUrl(123 as unknown as string)).toEqual({ valid: false, error: 'URL must be a string' })
+    expect(validateUrl(null as unknown as string)).toEqual({ valid: false, error: 'URL must be a string' })
+    expect(validateUrl(undefined as unknown as string)).toEqual({ valid: false, error: 'URL must be a string' })
     expect(validateUrl('not-a-url')).toEqual({
       valid: false,
       error: 'URL must be a valid absolute http or https URL'
     })
+  })
+
+  it('accepts valid URLs with leading/trailing whitespace', () => {
+    const result = validateUrl('  http://example.com  ')
+
+    expect(result.valid).toBe(true)
+
+    if (result.valid) {
+      expect(result.url.toString()).toBe('http://example.com/')
+    }
   })
 
   it('rejects malformed URLs missing a host', () => {

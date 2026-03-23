@@ -44,4 +44,10 @@ describe('normalizeUrl', () => {
 
     expect(normalized).toBe('http://example.com/')
   })
+
+  it('preserves percent-encoded reserved characters without double-encoding', () => {
+    const normalized = normalizeUrl(new URL('http://example.com/path%2Fwith%2Fslashes'))
+
+    expect(normalized).toBe('http://example.com/path%2Fwith%2Fslashes')
+  })
 })
