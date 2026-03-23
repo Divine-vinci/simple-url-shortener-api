@@ -1,6 +1,6 @@
 # Story 1.1: Initialize Fastify TypeScript Project with Environment Configuration
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -20,40 +20,40 @@ So that I have a running local server with validated config as the foundation fo
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Initialize Fastify project using starter template (AC: #1)
-  - [ ] Run `npm create fastify@latest -- --lang=ts` in a temporary location, then merge generated files into the repo root (the repo already exists with _bmad files)
-  - [ ] Verify Fastify 5.x is installed and server boots
-- [ ] Task 2: Install and configure additional dependencies (AC: #1, #2, #3, #6)
-  - [ ] Install production deps: `zod@^4.3.6`, `@fastify/env` (or use custom Zod-based config), `better-sqlite3`, `drizzle-orm@^0.45.1`, `pino@^10.3.1`
-  - [ ] Install dev deps: `vitest@^4.1.0`, `tsx@^4.21.0`, `drizzle-kit@^0.31.10`, `typescript`, `@types/better-sqlite3`, `eslint`
-  - [ ] Configure `tsconfig.json` and `tsconfig.build.json` for strict TypeScript
-- [ ] Task 3: Create directory structure (AC: #5)
-  - [ ] Create all `src/` subdirectories: config, plugins, routes, services, repositories, schemas, db, lib, types
-  - [ ] Create `tests/unit/`, `tests/integration/`, `tests/fixtures/`
-  - [ ] Create `data/.gitkeep` for local SQLite storage
-  - [ ] Create `drizzle/` directory for future migrations
-- [ ] Task 4: Implement environment configuration with Zod validation (AC: #2, #3)
-  - [ ] Create `src/config/env.ts` — Zod schema parsing PORT, BASE_URL, DATABASE_PATH, LOG_LEVEL from `process.env` with defaults
-  - [ ] Create `src/config/app-config.ts` — export typed config object from parsed env
-  - [ ] Ensure startup fails fast with clear error message on invalid config
-- [ ] Task 5: Create app bootstrap and server entry point (AC: #1)
-  - [ ] Create `src/app.ts` — Fastify instance factory, registers plugins
-  - [ ] Create `src/server.ts` — process entry point, calls app.listen on configured PORT
-  - [ ] Verify dev server starts with `npm run dev` (tsx watch mode)
-- [ ] Task 6: Create `.env.example` (AC: #4)
-  - [ ] Document PORT, BASE_URL, DATABASE_PATH, LOG_LEVEL with example values and comments
-- [ ] Task 7: Configure Vitest and write placeholder test (AC: #7)
-  - [ ] Create `vitest.config.ts` at repo root
-  - [ ] Create placeholder test in `tests/unit/` that asserts true
-  - [ ] Verify `npm test` passes
-- [ ] Task 8: Add npm scripts to package.json (AC: #1, #6, #7)
-  - [ ] `dev`: run with tsx in watch mode
-  - [ ] `build`: TypeScript compilation
-  - [ ] `start`: run compiled output
-  - [ ] `test`: vitest run
-  - [ ] `test:watch`: vitest watch mode
-  - [ ] `lint`: eslint
-  - [ ] `typecheck`: tsc --noEmit
+- [x] Task 1: Initialize Fastify project using starter template (AC: #1)
+  - [x] Run `npm create fastify@latest -- --lang=ts` in a temporary location, then merge generated files into the repo root (the repo already exists with _bmad files)
+  - [x] Verify Fastify 5.x is installed and server boots
+- [x] Task 2: Install and configure additional dependencies (AC: #1, #2, #3, #6)
+  - [x] Install production deps: `zod@^4.3.6`, `@fastify/env` (or use custom Zod-based config), `better-sqlite3`, `drizzle-orm@^0.45.1`, `pino@^10.3.1`
+  - [x] Install dev deps: `vitest@^4.1.0`, `tsx@^4.21.0`, `drizzle-kit@^0.31.10`, `typescript`, `@types/better-sqlite3`, `eslint`
+  - [x] Configure `tsconfig.json` and `tsconfig.build.json` for strict TypeScript
+- [x] Task 3: Create directory structure (AC: #5)
+  - [x] Create all `src/` subdirectories: config, plugins, routes, services, repositories, schemas, db, lib, types
+  - [x] Create `tests/unit/`, `tests/integration/`, `tests/fixtures/`
+  - [x] Create `data/.gitkeep` for local SQLite storage
+  - [x] Create `drizzle/` directory for future migrations
+- [x] Task 4: Implement environment configuration with Zod validation (AC: #2, #3)
+  - [x] Create `src/config/env.ts` — Zod schema parsing PORT, BASE_URL, DATABASE_PATH, LOG_LEVEL from `process.env` with defaults
+  - [x] Create `src/config/app-config.ts` — export typed config object from parsed env
+  - [x] Ensure startup fails fast with clear error message on invalid config
+- [x] Task 5: Create app bootstrap and server entry point (AC: #1)
+  - [x] Create `src/app.ts` — Fastify instance factory, registers plugins
+  - [x] Create `src/server.ts` — process entry point, calls app.listen on configured PORT
+  - [x] Verify dev server starts with `npm run dev` (tsx watch mode)
+- [x] Task 6: Create `.env.example` (AC: #4)
+  - [x] Document PORT, BASE_URL, DATABASE_PATH, LOG_LEVEL with example values and comments
+- [x] Task 7: Configure Vitest and write placeholder test (AC: #7)
+  - [x] Create `vitest.config.ts` at repo root
+  - [x] Create placeholder test in `tests/unit/` that asserts true
+  - [x] Verify `npm test` passes
+- [x] Task 8: Add npm scripts to package.json (AC: #1, #6, #7)
+  - [x] `dev`: run with tsx in watch mode
+  - [x] `build`: TypeScript compilation
+  - [x] `start`: run compiled output
+  - [x] `test`: vitest run
+  - [x] `test:watch`: vitest watch mode
+  - [x] `lint`: eslint
+  - [x] `typecheck`: tsc --noEmit
 
 ## Dev Notes
 
@@ -139,8 +139,41 @@ simple-url-shortener-api/
 
 ### Agent Model Used
 
+openai/gpt-5.4
+
 ### Debug Log References
+
+- `npm install`
+- `npm run typecheck`
+- `npm run build`
+- `npm test`
+- `npm run lint`
+- `node dist/server.js` (default port 3000 was unavailable in host env; verified startup on 3001)
+- `PORT=abc node dist/server.js` (verified fail-fast config validation)
 
 ### Completion Notes List
 
+- Bootstrapped the repo from the Fastify TypeScript starter shape without touching existing `_bmad` directories.
+- Implemented Zod-backed environment parsing with defaults and clear startup validation errors.
+- Added strict TypeScript, Vitest placeholder coverage, ESLint config, and required project directory structure.
+- Verified build, typecheck, lint, and tests all pass.
+- Verified server startup on an alternate port because host port 3000 was already occupied outside the project.
+
 ### File List
+
+- package.json
+- package-lock.json
+- tsconfig.json
+- tsconfig.build.json
+- vitest.config.ts
+- eslint.config.js
+- .env.example
+- .gitignore
+- src/app.ts
+- src/server.ts
+- src/config/env.ts
+- src/config/app-config.ts
+- src/types/fastify.d.ts
+- tests/unit/placeholder.test.ts
+- data/.gitkeep
+
