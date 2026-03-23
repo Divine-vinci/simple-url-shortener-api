@@ -4,6 +4,7 @@ import { loadConfig } from './config/app-config.js'
 import { databasePlugin } from './plugins/database.js'
 import { errorHandlerPlugin } from './plugins/error-handler.js'
 import { requestLoggingPlugin } from './plugins/request-logging.js'
+import swaggerPlugin from './plugins/swagger.js'
 import { healthRoutes } from './routes/health-routes.js'
 import { shortenRoutes } from './routes/shorten-routes.js'
 import { redirectRoutes } from './routes/redirect-routes.js'
@@ -70,6 +71,7 @@ export async function buildApp(options: BuildAppOptions = {}): Promise<FastifyIn
   })
 
   app.decorate('config', config)
+  await app.register(swaggerPlugin)
   await app.register(databasePlugin)
   await app.register(errorHandlerPlugin)
   await app.register(requestLoggingPlugin)

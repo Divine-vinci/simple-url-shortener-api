@@ -1,6 +1,6 @@
 # Story 3.2: OpenAPI Documentation
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -21,37 +21,37 @@ So that I can discover and understand the API contract without reading source co
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Install dependencies (AC: #5)
-  - [ ] Run `npm install @fastify/swagger@9.7.0 @fastify/swagger-ui@5.2.5`
-- [ ] Task 2: Create health response schemas (AC: #2, #3)
-  - [ ] Create `src/schemas/health-schemas.ts` if Story 3.1 hasn't created it yet
-  - [ ] Define Zod schema for health response `{ status: string, database: string }`
-  - [ ] Export JSON schema for Fastify route schema registration
-  - [ ] If `health-schemas.ts` already exists (from Story 3.1), skip this task
-- [ ] Task 3: Add OpenAPI schema metadata to all route files (AC: #2, #3, #7)
-  - [ ] Update `src/routes/shorten-routes.ts` — add `tags: ['URL Shortening']`, `summary`, `description` to route schema options
-  - [ ] Update `src/routes/redirect-routes.ts` — add `tags: ['Redirect']`, `summary`, `description`, add 302 response schema (empty body with Location header)
-  - [ ] Update `src/routes/health-routes.ts` — add `tags: ['Operations']`, `summary`, `description` to route schema options (if Story 3.1 is complete; otherwise create a note for the dev)
-- [ ] Task 4: Create swagger plugin (AC: #1, #4, #5)
-  - [ ] Create `src/plugins/swagger.ts`
-  - [ ] Register `@fastify/swagger` with OpenAPI 3.0 config: title, description, version (from package.json), contact info
-  - [ ] Register `@fastify/swagger-ui` with `routePrefix: '/docs'`
-  - [ ] Export as `FastifyPluginAsync`
-- [ ] Task 5: Register swagger plugin in app.ts (AC: #1)
-  - [ ] Import and register `swaggerPlugin` in `src/app.ts`
-  - [ ] Registration order: swagger plugin FIRST (before routes), then database, error handler, request logging, routes
-  - [ ] `@fastify/swagger` must be registered before route definitions for schema collection to work
-- [ ] Task 6: Write integration tests (AC: #8)
-  - [ ] Create `tests/integration/swagger.test.ts`
-  - [ ] Test: GET /docs returns 200 with HTML content (Swagger UI)
-  - [ ] Test: GET /docs/json returns 200 with valid OpenAPI JSON
-  - [ ] Test: OpenAPI spec includes path `/shorten` with POST method
-  - [ ] Test: OpenAPI spec includes path `/{shortCode}` with GET method
-  - [ ] Test: OpenAPI spec includes path `/health` with GET method
-  - [ ] Test: OpenAPI spec has correct title and version
-- [ ] Task 7: Verify build and all tests pass
-  - [ ] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
-  - [ ] Verify existing tests still pass (no regressions)
+- [x] Task 1: Install dependencies (AC: #5)
+  - [x] Run `npm install @fastify/swagger@9.7.0 @fastify/swagger-ui@5.2.5`
+- [x] Task 2: Create health response schemas (AC: #2, #3)
+  - [x] Create `src/schemas/health-schemas.ts` if Story 3.1 hasn't created it yet
+  - [x] Define Zod schema for health response `{ status: string, database: string }`
+  - [x] Export JSON schema for Fastify route schema registration
+  - [x] If `health-schemas.ts` already exists (from Story 3.1), skip this task
+- [x] Task 3: Add OpenAPI schema metadata to all route files (AC: #2, #3, #7)
+  - [x] Update `src/routes/shorten-routes.ts` — add `tags: ['URL Shortening']`, `summary`, `description` to route schema options
+  - [x] Update `src/routes/redirect-routes.ts` — add `tags: ['Redirect']`, `summary`, `description`, add 302 response schema (empty body with Location header)
+  - [x] Update `src/routes/health-routes.ts` — add `tags: ['Operations']`, `summary`, `description` to route schema options (if Story 3.1 is complete; otherwise create a note for the dev)
+- [x] Task 4: Create swagger plugin (AC: #1, #4, #5)
+  - [x] Create `src/plugins/swagger.ts`
+  - [x] Register `@fastify/swagger` with OpenAPI 3.0 config: title, description, version (from package.json), contact info
+  - [x] Register `@fastify/swagger-ui` with `routePrefix: '/docs'`
+  - [x] Export as `FastifyPluginAsync`
+- [x] Task 5: Register swagger plugin in app.ts (AC: #1)
+  - [x] Import and register `swaggerPlugin` in `src/app.ts`
+  - [x] Registration order: swagger plugin FIRST (before routes), then database, error handler, request logging, routes
+  - [x] `@fastify/swagger` must be registered before route definitions for schema collection to work
+- [x] Task 6: Write integration tests (AC: #8)
+  - [x] Create `tests/integration/swagger.test.ts`
+  - [x] Test: GET /docs returns 200 with HTML content (Swagger UI)
+  - [x] Test: GET /docs/json returns 200 with valid OpenAPI JSON
+  - [x] Test: OpenAPI spec includes path `/shorten` with POST method
+  - [x] Test: OpenAPI spec includes path `/{shortCode}` with GET method
+  - [x] Test: OpenAPI spec includes path `/health` with GET method
+  - [x] Test: OpenAPI spec has correct title and version
+- [x] Task 7: Verify build and all tests pass
+  - [x] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
+  - [x] Verify existing tests still pass (no regressions)
 
 ## Dev Notes
 
@@ -317,10 +317,38 @@ simple-url-shortener-api/
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+GPT-5 Codex
 
 ### Debug Log References
 
+- `npm install @fastify/swagger@9.7.0 @fastify/swagger-ui@5.2.5`
+- `npm test -- tests/integration/swagger.test.ts`
+- `npm run typecheck`
+- `npm run build`
+- `npm test`
+- `npm run lint`
+
 ### Completion Notes List
 
+- Added `src/plugins/swagger.ts` and registered Swagger before route plugins so `/docs` and `/docs/json` are generated from Fastify route schemas.
+- Added OpenAPI tags, summaries, descriptions, and redirect params/302 schema metadata to the shorten, redirect, and health routes.
+- Added `tests/integration/swagger.test.ts` to verify Swagger UI serving, OpenAPI JSON generation, documented paths, and package version exposure.
+- Reused the existing health schemas from Story 3.1; no new health schema file was required.
+- Validation passed: `npm run typecheck`, `npm run build`, `npm test`, and `npm run lint`.
+
 ### File List
+
+- `package.json`
+- `package-lock.json`
+- `src/app.ts`
+- `src/plugins/swagger.ts`
+- `src/routes/shorten-routes.ts`
+- `src/routes/redirect-routes.ts`
+- `src/routes/health-routes.ts`
+- `tests/integration/swagger.test.ts`
+- `_bmad-output/implementation-artifacts/3-2-openapi-documentation.md`
+- `_bmad-output/implementation-artifacts/sprint-status.yaml`
+
+## Change Log
+
+- 2026-03-23: Implemented Story 3.2 OpenAPI documentation with Swagger UI, route metadata, integration tests, and full validation.

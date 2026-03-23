@@ -17,6 +17,9 @@ export const shortenRoutes: FastifyPluginAsync = async (app) => {
     {
       bodyLimit: 1_048_576,
       schema: {
+        tags: ['URL Shortening'],
+        summary: 'Create a short URL',
+        description: 'Submit a long URL to receive a shortened URL with a unique short code',
         body: shortenRequestJsonSchema,
         response: {
           200: shortenResponseJsonSchema,

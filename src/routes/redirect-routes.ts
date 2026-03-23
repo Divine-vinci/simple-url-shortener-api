@@ -14,7 +14,25 @@ export const redirectRoutes: FastifyPluginAsync = async (app) => {
     '/:shortCode',
     {
       schema: {
+        tags: ['Redirect'],
+        summary: 'Redirect to original URL',
+        description: 'Look up a short code and redirect (302) to the original destination URL',
+        params: {
+          type: 'object',
+          additionalProperties: false,
+          required: ['shortCode'],
+          properties: {
+            shortCode: {
+              type: 'string',
+              description: '7-character short code'
+            }
+          }
+        },
         response: {
+          302: {
+            type: 'null',
+            description: 'Redirect to original URL via Location header'
+          },
           404: errorResponseJsonSchema,
           500: errorResponseJsonSchema
         }
