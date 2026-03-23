@@ -6,11 +6,11 @@
 - Phase: 4
 - Current story: 2.1 GET /:shortCode Redirect Endpoint
 - Working directory: /home/clawd/projects/simple-url-shortener-api
-- Last action: Relaunched Claude ACP code-review for Story 2.1 after prior review session timed out
-- Next step: ACP session running — poll cron active
+- Last action: Marked Claude ACP code-review for Story 2.1 as timed out after exceeding cron threshold with no completion output
+- Next step: Fallback: start Claude ACP for code-review
 - acp_workflow: code-review
 - acp_session_key: agent:claude:acp:df997154-f607-4bac-8012-42e0345608ed
-- acp_status: running
+- acp_status: timed_out
 - acp_started_at: 2026-03-23T14:04:00Z
 - next_after_acp: If review passes, mark Story 2.1 done, then start Story 2.2: Request Logging and Operational Observability
 - prep_story_session_key: agent:claude:acp:004c2ae4-4748-4bd2-bbd6-31579facecc6
