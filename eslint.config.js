@@ -19,7 +19,11 @@ module.exports = [
       '@typescript-eslint': tsPlugin
     },
     rules: {
-      '@typescript-eslint/no-unused-vars': ['error', { 'argsIgnorePattern': '^_' }]
+      ...tsPlugin.configs['recommended'].rules,
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
+      'no-console': 'warn'
     }
   }
 ]

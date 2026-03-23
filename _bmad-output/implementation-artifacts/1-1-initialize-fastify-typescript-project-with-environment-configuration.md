@@ -1,6 +1,6 @@
 # Story 1.1: Initialize Fastify TypeScript Project with Environment Configuration
 
-Status: review
+Status: done
 
 ## Story
 
@@ -175,5 +175,21 @@ openai/gpt-5.4
 - src/config/app-config.ts
 - src/types/fastify.d.ts
 - tests/unit/placeholder.test.ts
+- tests/unit/env.test.ts
+- tests/unit/app-config.test.ts
 - data/.gitkeep
+- drizzle/.gitkeep
+- src/db/.gitkeep
+- src/lib/.gitkeep
+- src/plugins/.gitkeep
+- src/repositories/.gitkeep
+- src/routes/.gitkeep
+- src/schemas/.gitkeep
+- src/services/.gitkeep
+- tests/fixtures/.gitkeep
+- tests/integration/.gitkeep
+
+### Change Log
+
+- **2026-03-23 — Code Review (Amelia, claude-opus-4-6)**: Fixed 6 issues found during adversarial review. Added unit tests for env.ts and app-config.ts (AC #3 coverage). Removed redundant `pino` direct dependency (Fastify bundles Pino). Enhanced ESLint config with recommended TypeScript rules. Removed inconsistent `vitest/globals` type reference. Fixed server.ts unhandled rejection pattern. Updated File List with missing .gitkeep entries.
 

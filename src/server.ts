@@ -17,4 +17,8 @@ async function startServer(): Promise<void> {
   }
 }
 
-void startServer()
+startServer().catch((error) => {
+  // eslint-disable-next-line no-console
+  console.error('Failed to start server:', error)
+  process.exit(1)
+})
