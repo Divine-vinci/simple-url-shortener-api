@@ -1,6 +1,6 @@
 # Story 1.3: Short Code Generation Service
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -17,26 +17,26 @@ So that each shortened URL gets a collision-resistant, URL-safe identifier.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create short code generation service (AC: #1, #2)
-  - [ ] Create `src/services/generate-short-code-service.ts`
-  - [ ] Implement `generateShortCode()` that produces a 7-character base62 string using `crypto.randomBytes`
-  - [ ] Use base62 alphabet: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`
-  - [ ] Convert random bytes to base62 characters using modulo mapping
-- [ ] Task 2: Implement collision-aware generation (AC: #3)
-  - [ ] Create `generateUniqueShortCode(existsFn: (code: string) => boolean): string` that wraps generation with collision checking
-  - [ ] Accept a callback/function that checks if a code already exists in the database (dependency injection for testability)
-  - [ ] Retry up to 3 times on collision (total 4 attempts including initial)
-  - [ ] Throw a typed error (`ShortCodeCollisionError` or use existing error pattern from `src/lib/errors.ts`) after max retries exhausted
-- [ ] Task 3: Write unit tests (AC: #4)
-  - [ ] Create `tests/unit/generate-short-code-service.test.ts`
-  - [ ] Test: generated code is exactly 7 characters long
-  - [ ] Test: generated code contains only `[a-zA-Z0-9]` characters
-  - [ ] Test: multiple calls produce different codes (statistical uniqueness)
-  - [ ] Test: `generateUniqueShortCode` succeeds on first try when no collision
-  - [ ] Test: `generateUniqueShortCode` retries and succeeds when collision occurs on first attempt(s)
-  - [ ] Test: `generateUniqueShortCode` throws error after 3 consecutive collisions (4 total attempts)
-- [ ] Task 4: Verify build and existing tests still pass
-  - [ ] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
+- [x] Task 1: Create short code generation service (AC: #1, #2)
+  - [x] Create `src/services/generate-short-code-service.ts`
+  - [x] Implement `generateShortCode()` that produces a 7-character base62 string using `crypto.randomBytes`
+  - [x] Use base62 alphabet: `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`
+  - [x] Convert random bytes to base62 characters using modulo mapping
+- [x] Task 2: Implement collision-aware generation (AC: #3)
+  - [x] Create `generateUniqueShortCode(existsFn: (code: string) => boolean): string` that wraps generation with collision checking
+  - [x] Accept a callback/function that checks if a code already exists in the database (dependency injection for testability)
+  - [x] Retry up to 3 times on collision (total 4 attempts including initial)
+  - [x] Throw a typed error (`ShortCodeCollisionError` or use existing error pattern from `src/lib/errors.ts`) after max retries exhausted
+- [x] Task 3: Write unit tests (AC: #4)
+  - [x] Create `tests/unit/generate-short-code-service.test.ts`
+  - [x] Test: generated code is exactly 7 characters long
+  - [x] Test: generated code contains only `[a-zA-Z0-9]` characters
+  - [x] Test: multiple calls produce different codes (statistical uniqueness)
+  - [x] Test: `generateUniqueShortCode` succeeds on first try when no collision
+  - [x] Test: `generateUniqueShortCode` retries and succeeds when collision occurs on first attempt(s)
+  - [x] Test: `generateUniqueShortCode` throws error after 3 consecutive collisions (4 total attempts)
+- [x] Task 4: Verify build and existing tests still pass
+  - [x] Run `npm run typecheck`, `npm run build`, `npm test`, `npm run lint`
 
 ## Dev Notes
 
@@ -127,10 +127,36 @@ simple-url-shortener-api/
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+openai/gpt-5.4
+
+### Implementation Plan
+
+- AC1-AC2: add pure base62 short-code generator backed by `node:crypto` with injectable randomness for deterministic validation.
+- AC3: add collision-aware wrapper with injected existence check + typed exhaustion error.
+- AC4: cover format, mapping, uniqueness, retry success, and retry exhaustion via Vitest.
 
 ### Debug Log References
 
 ### Completion Notes List
 
+- ✅ AC1: added 7-character base62 generator in `src/services/generate-short-code-service.ts`.
+- ✅ AC2: generation uses `crypto.randomBytes` with modulo mapping over the required base62 alphabet.
+- ✅ AC3: added `generateUniqueShortCode` retry loop with max 3 retries / 4 total attempts and typed `ShortCodeCollisionError`.
+- ✅ AC4: added unit coverage for format, deterministic mapping, statistical uniqueness, collision retry success, and collision exhaustion.
+
 ### File List
+
+- src/lib/errors.ts
+- src/services/generate-short-code-service.ts
+- tests/unit/generate-short-code-service.test.ts
+
+### Change Log
+
+- 2026-03-23: implemented short code generation service + collision-aware retry handling and validated with typecheck/build/test/lint.
+
+
+
+
+### Debug Log References
+
+- `npm run typecheck && npm run build && npm test && npm run lint`
