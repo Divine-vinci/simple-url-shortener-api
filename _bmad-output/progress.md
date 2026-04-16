@@ -1,7 +1,7 @@
 # BMAD Progress — simple-url-shortener-api
 ## MC Project
 - project_id: 7
-- task_ids: {phase1: 11, phase3: 12}
+- task_ids: {phase1: 11, phase3: 12, phase4: 13}
 ## Current State
 - Phase: 4
 - Current story: 3.3 Docker Packaging and CI Pipeline
